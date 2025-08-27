@@ -1,93 +1,65 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bryson Bargas • Portfolio</title>
-  <meta name="description" content="Portfolio of Bryson Bargas — projects, skills, and contact." />
-  <link rel="preload" href="styles.css" as="style">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🟢</text></svg>">
 </head>
 <body>
-  <!-- Skip link for keyboard users -->
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="site-header" id="top">
-    <div class="container nav">
-      <a class="brand" href="#top" aria-label="Home">
-        <!-- simple inline logo -->
-        <svg class="logo" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
-        <span>BB</span>
-      </a>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
-      <nav id="site-nav" class="site-nav" aria-label="Primary">
-        <a href="#projects">Projects</a>
-        <a href="#extras">Extras</a>
-        <a href="#media">Media</a>
-        <a class="btn" href="#contact">Contact</a>
-      </nav>
-    </div>
+  <header>
+    <h1>Bryson Bargas</h1>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#extras">Extras</a>
+      <a href="#media">Media</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <main id="main">
-    <!-- Hero / Intro -->
-    <section class="hero container" id="home" aria-label="Introduction">
-      <div class="hero-copy">
-        <p class="eyebrow">Hi, I’m</p>
-        <h1 class="headline">Bryson <span class="accent">Bargas</span></h1>
-        <p class="tagline">
-          CS student & builder. I turn ideas into fast, accessible apps.
-        </p>
-        <div class="cta">
-          <a class="btn" href="#projects">View Projects</a>
-          <a class="btn ghost" href="mailto:Bryson.A.Bargas@gmail.com">Email Me</a>
-        </div>
-      </div>
-      <div class="hero-media">
-        <!-- placeholder; drop a real headshot at assets/profile.jpg -->
-        <img src="assets/profile.jpg" alt="Portrait of Bryson Bargas" loading="lazy" />
-      </div>
+  <main>
+    <section id="home">
+      <h2>Introduction</h2>
+      <p>Hi, I’m Bryson Bargas</p>
+      <p>CS student & builder. I turn ideas into fast, accessible apps.</p>
+      <a href="#projects">View Projects</a>
+      <a href="mailto:Bryson.A.Bargas@gmail.com">Email Me</a>
+      <img src="assets/profile.jpg" alt="Portrait of Bryson Bargas">
     </section>
 
-    <!-- Featured preview (we'll flesh out the full Projects section later) -->
-    <section class="featured container" id="projects" aria-label="Featured Work">
+    <section id="projects">
       <h2>Featured Work</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Weather Forecast App</h3>
-          <p>PyQt app that fetches NWS daily/hourly forecasts and exports CSV.</p>
-          <div class="links">
-            <a href="#" aria-disabled="true">Demo</a>
-            <a href="#" aria-disabled="true">Code</a>
-          </div>
-          <ul class="tags"><li>Python</li><li>PyQt</li><li>APIs</li></ul>
-        </article>
-        <article class="card">
-          <h3>University DB Schema</h3>
-          <p>MySQL schema & queries for a full university database.</p>
-          <div class="links">
-            <a href="#" aria-disabled="true">Write‑up</a>
-            <a href="#" aria-disabled="true">Code</a>
-          </div>
-          <ul class="tags"><li>SQL</li><li>MySQL</li></ul>
-        </article>
-      </div>
-      <p class="more-note">More projects and sections coming below.</p>
+
+      <article>
+        <h3>Weather Forecast App</h3>
+        <p>PyQt app that fetches NWS daily/hourly forecasts and exports CSV.</p>
+        <p>Tags: Python, PyQt, APIs</p>
+      </article>
+
+      <article>
+        <h3>University DB Schema</h3>
+        <p>MySQL schema & queries for a full university database.</p>
+        <p>Tags: SQL, MySQL</p>
+      </article>
     </section>
 
-    <!-- Placeholders for later steps -->
-    <section class="container" id="extras" aria-label="Extras"><h2>Extras</h2><p>Coming soon.</p></section>
-    <section class="container" id="media" aria-label="Media"><h2>Media</h2><p>Coming soon.</p></section>
-    <section class="container" id="contact" aria-label="Contact"><h2>Contact</h2><p>Coming soon.</p></section>
+    <section id="extras">
+      <h2>Extras</h2>
+      <p>Coming soon.</p>
+    </section>
+
+    <section id="media">
+      <h2>Media</h2>
+      <p>Coming soon.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Coming soon.</p>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Bryson Bargas • Built on GitHub Pages</p>
-    </div>
+  <footer>
+    <p>© 2025 Bryson Bargas</p>
   </footer>
-
-  <script src="script.js" defer></script>
 </body>
 </html>
