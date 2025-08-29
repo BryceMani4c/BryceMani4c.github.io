@@ -1,16 +1,172 @@
-
+/* ========== 1) Base reset + smooth scrolling ========== */
 *,
 *::before,
 *::after { box-sizing: border-box; }
 
 html, body { margin: 0; padding: 0; }
 
+/* Smooth scroll for in-page anchors like #projects, #contact */
+html { scroll-behavior: smooth; }
+
 body {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   line-height: 1.6;
-  color: #0f172a;          
+  color: #0f172a;         /* slate-900 */
   background: #ffffff;
 }
 
-a { color: #16a34a; text-decoration: none; }
-a:hover { text-decoration: underline; }
+/* Dark mode (auto) */
+@media (prefers-color-scheme: dark) {
+  body        { color: #e5e7eb; background: #0b0f1a; }
+  a           { color: #22c55e; }
+  header,
+  section     { border-color: #1f2937; }
+}
+
+/* Readable width for everything without changing markup */
+header, main, section, footer {
+  max-width: 960px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* ========== 2) Sticky header + nav pills (no HTML changes) ========== */
+header {
+  position: sticky;   /* stays visible while scrolling */
+  top: 0;
+  z-index: 20;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: saturate(120%) blur(8px);
+  border-bottom: 1px solid #e2e8f0;
+}
+@media (prefers-color-scheme: dark) {
+  header { background: rgba(11,15,26,.75); }
+}
+
+header h1 {
+  margin: .75rem 0 .25rem;
+  font-size: clamp(1.25rem, 1.2vw + 1rem, 1.75rem);
+}
+
+nav {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  padding: 0 0 .75rem;
+}
+
+nav a {
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #e2e8f0;
+  border-radius: .6rem;
+  padding: .4rem .7rem;
+  transition: background-color .15s ease, box-shadow .15s ease, transform .06s ease;
+}
+nav a:hover {
+  background: #f1f5f9;
+  transform: translateY(-1px);
+}
+@media (prefers-color-scheme: dark) {
+  nav a { border-color: #1f2937; }
+  nav a:hover { background: #0f172a; }
+}
+
+/* Make Contact stand out (CTA) without editing HTML */
+nav a[href*="#contact"] {
+  background: #16a34a;      /* green-600 */
+  color: #ffffff;
+  border-color: #16a34a;
+}
+nav a[href*="#contact"]:hover {
+  box-shadow: 0 0 0 .25rem rgba(22,163,74,.25);
+  transform: translateY(-1px);
+}
+
+/* ========== 3) Section rhythm + anchor offset (functional) ========== */
+section {
+  padding-block: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+section:last-of-type { border-bottom: none; }
+
+/* When you jump to #projects/#contact, keep the content from hiding under sticky header */
+section[id] { scroll-margin-top: 5.5rem; }
+
+/* Headings + text */
+h2 { margin: 0 0 1rem; font-size: clamp(1.15rem, .9vw + 1rem, 1.6rem); }
+h3 { margin: .5rem 0 .25rem; font-size: 1.1rem; }
+p  { margin: .5rem 0 1rem; }
+
+/* ========== 4) Intro CTAs + responsive image (no markup changes) ========== */
+#home a[href^="#"],
+#home a[href^="mailto:"] {
+  display: inline-block;
+  margin-right: .6rem;
+  padding: .55rem .85rem;
+  border-radius: .6rem;
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+}
+#home a[href^="#"] {
+  background: #16a34a; color: #ffffff; border-color: #16a34a;
+}
+#home a[href^="mailto:"] {
+  background: #f1f5f9; color: inherit;
+}
+
+#home img {
+  display: block;
+  width: min(300px, 100%);
+  height: auto;
+  border-radius: .7rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  margin-top: 1rem;
+}
+
+/* Side-by-side intro (text|image) on wider screens without touching HTML */
+@media (min-width: 820px) {
+  #home {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 2rem;
+    align-items: center;
+  }
+}
+
+/* ========== 5) Projects look like cards (readable, scannable) ========== */
+#projects article {
+  border: 1px solid #e2e8f0;
+  border-radius: .8rem;
+  padding: 1rem;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(0,0,0,.05);
+}
+#projects article + article { margin-top: 1rem; }
+
+/* Optional grid if you add more articles later */
+@media (min-width: 720px) {
+  #projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ========== 6) Contact links easier to tap + consistent look ========== */
+#contact a {
+  color: #16a34a;
+  text-decoration: none;
+  word-break: break-word;
+}
+#contact a:hover { text-decoration: underline; }
+
+/* Make each contact row breathe on mobile */
+#contact p { margin: .35rem 0; }
+
+/* ========== 7) Footer ========== */
+footer {
+  padding-block: 2rem 3rem;
+  opacity: .85;
+}
