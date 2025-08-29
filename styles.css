@@ -68,9 +68,8 @@ nav a:hover {
   nav a:hover { background: #0f172a; }
 }
 
-/* Make Contact stand out (CTA) without editing HTML */
 nav a[href*="#contact"] {
-  background: #16a34a;      /* green-600 */
+  background: #16a34a;      
   color: #ffffff;
   border-color: #16a34a;
 }
@@ -79,22 +78,18 @@ nav a[href*="#contact"]:hover {
   transform: translateY(-1px);
 }
 
-/* ========== 3) Section rhythm + anchor offset (functional) ========== */
 section {
   padding-block: 2rem;
   border-bottom: 1px solid #e2e8f0;
 }
 section:last-of-type { border-bottom: none; }
 
-/* When you jump to #projects/#contact, keep the content from hiding under sticky header */
 section[id] { scroll-margin-top: 5.5rem; }
 
-/* Headings + text */
 h2 { margin: 0 0 1rem; font-size: clamp(1.15rem, .9vw + 1rem, 1.6rem); }
 h3 { margin: .5rem 0 .25rem; font-size: 1.1rem; }
 p  { margin: .5rem 0 1rem; }
 
-/* ========== 4) Intro CTAs + responsive image (no markup changes) ========== */
 #home a[href^="#"],
 #home a[href^="mailto:"] {
   display: inline-block;
@@ -121,7 +116,6 @@ p  { margin: .5rem 0 1rem; }
   margin-top: 1rem;
 }
 
-/* Side-by-side intro (text|image) on wider screens without touching HTML */
 @media (min-width: 820px) {
   #home {
     display: grid;
@@ -131,7 +125,6 @@ p  { margin: .5rem 0 1rem; }
   }
 }
 
-/* ========== 5) Projects look like cards (readable, scannable) ========== */
 #projects article {
   border: 1px solid #e2e8f0;
   border-radius: .8rem;
@@ -141,7 +134,6 @@ p  { margin: .5rem 0 1rem; }
 }
 #projects article + article { margin-top: 1rem; }
 
-/* Optional grid if you add more articles later */
 @media (min-width: 720px) {
   #projects {
     display: grid;
@@ -150,7 +142,6 @@ p  { margin: .5rem 0 1rem; }
   }
 }
 
-/* ========== 6) Contact links easier to tap + consistent look ========== */
 #contact a {
   color: #16a34a;
   text-decoration: none;
@@ -158,11 +149,26 @@ p  { margin: .5rem 0 1rem; }
 }
 #contact a:hover { text-decoration: underline; }
 
-/* Make each contact row breathe on mobile */
 #contact p { margin: .35rem 0; }
 
-/* ========== 7) Footer ========== */
 footer {
   padding-block: 2rem 3rem;
   opacity: .85;
 }
+
+.project-link {
+  display: block;   
+  text-decoration: none;
+  color: inherit;   
+}
+
+.project-link article {
+  transition: transform .1s ease, box-shadow .15s ease;
+}
+
+.project-link:hover article {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+  cursor: pointer;
+}
+
