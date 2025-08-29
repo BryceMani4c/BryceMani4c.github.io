@@ -1,174 +1,149 @@
+
 *,
 *::before,
-*::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 
 body {
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   line-height: 1.6;
-  color: #ffffff; 
-  background: #000000;
+  color: #111827;        
+  background: #ffffff;
 }
 
+/* ===========================
+   2) Layout Containers
+   =========================== */
 
-@media (prefers-color-scheme: dark) {
-  body        { color: #e5e7eb; background: #0b0f1a; }
-  a           { color: #22c55e; }
-  header,
-  section     { border-color: #1f2937; }
-}
-
-
+/* Constrain readable width for all main wrappers */
 header, main, section, footer {
-  max-width: 960px;
-  margin-inline: auto;
-  padding-inline: 1rem;
+  max-width: 960px;      /* keeps text lines readable */
+  margin-inline: auto;   /* centers content horizontally */
+  padding-inline: 1rem;  /* side padding for small screens */
 }
 
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(255,255,255,.85);
-  backdrop-filter: saturate(120%) blur(8px);
-  border-bottom: 1px solid #e2e8f0;
+/* Give each section breathing room */
+section {
+  padding-block: 2rem;   /* vertical spacing */
+  border-bottom: 1px solid #e5e7eb; /* light divider line */
 }
-@media (prefers-color-scheme: dark) {
-  header { background: rgba(11,15,26,.75); }
+section:last-of-type {
+  border-bottom: none;   /* remove divider on the last section */
 }
 
-header h1 {
-  margin: .75rem 0 .25rem;
-  font-size: clamp(1.25rem, 1.2vw + 1rem, 1.75rem);
+/* ===========================
+   3) Typography
+   =========================== */
+
+/* Top-level heading */
+h1 {
+  margin: 1rem 0 .5rem;
+  font-size: clamp(1.5rem, 1vw + 1rem, 2rem);
 }
+
+/* Section headings */
+h2 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.25rem, .8vw + 1rem, 1.75rem);
+}
+
+/* Subheadings */
+h3 {
+  margin: .5rem 0 .25rem;
+  font-size: 1.1rem;
+}
+
+/* Paragraphs */
+p {
+  margin: .5rem 0 1rem;
+}
+
+/* ===========================
+   4) Links
+   =========================== */
+
+a {
+  color: #2563eb;             /* blue-600 */
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline; /* underline only on hover */
+}
+
+/* ===========================
+   5) Navigation
+   =========================== */
 
 nav {
   display: flex;
   gap: .5rem;
-  flex-wrap: wrap;
-  padding: 0 0 .75rem;
+  flex-wrap: wrap;            /* wrap links on small screens */
+  margin-bottom: 1rem;
 }
 
 nav a {
+  padding: .4rem .7rem;
+  border: 1px solid #e5e7eb;
+  border-radius: .5rem;
   color: inherit;
   text-decoration: none;
-  border: 1px solid #e2e8f0;
-  border-radius: .6rem;
-  padding: .4rem .7rem;
-  transition: background-color .15s ease, box-shadow .15s ease, transform .06s ease;
+  transition: background-color .2s ease;
 }
 nav a:hover {
-  background: #f1f5f9;
-  transform: translateY(-1px);
-}
-@media (prefers-color-scheme: dark) {
-  nav a { border-color: #1f2937; }
-  nav a:hover { background: #0f172a; }
+  background: #f3f4f6;        /* light gray on hover */
 }
 
-nav a[href*="#contact"] {
-  background: #16a34a;      
-  color: #ffffff;
-  border-color: #16a34a;
-}
-nav a[href*="#contact"]:hover {
-  box-shadow: 0 0 0 .25rem rgba(22,163,74,.25);
-  transform: translateY(-1px);
-}
+/* ===========================
+   6) Sticky Header
+   =========================== */
 
-section {
-  padding-block: 2rem;
-  border-bottom: 1px solid #e2e8f0;
-}
-section:last-of-type { border-bottom: none; }
-
-section[id] { scroll-margin-top: 5.5rem; }
-
-h2 { margin: 0 0 1rem; font-size: clamp(1.15rem, .9vw + 1rem, 1.6rem); }
-h3 { margin: .5rem 0 .25rem; font-size: 1.1rem; }
-p  { margin: .5rem 0 1rem; }
-
-#home a[href^="#"],
-#home a[href^="mailto:"] {
-  display: inline-block;
-  margin-right: .6rem;
-  padding: .55rem .85rem;
-  border-radius: .6rem;
-  border: 1px solid #e2e8f0;
-  text-decoration: none;
-}
-#home a[href^="#"] {
-  background: #16a34a; color: #ffffff; border-color: #16a34a;
-}
-#home a[href^="mailto:"] {
-  background: #f1f5f9; color: inherit;
-}
-
-#home img {
-  display: block;
-  width: min(300px, 100%);
-  height: auto;
-  border-radius: .7rem;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 8px 24px rgba(0,0,0,.06);
-  margin-top: 1rem;
-}
-
-@media (min-width: 820px) {
-  #home {
-    display: grid;
-    grid-template-columns: 1.2fr .8fr;
-    gap: 2rem;
-    align-items: center;
-  }
-}
-
-#projects article {
-  border: 1px solid #e2e8f0;
-  border-radius: .8rem;
-  padding: 1rem;
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   background: #ffffff;
-  box-shadow: 0 10px 28px rgba(0,0,0,.05);
+  border-bottom: 1px solid #e5e7eb;
 }
-#projects article + article { margin-top: 1rem; }
 
-@media (min-width: 720px) {
-  #projects {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+/* ===========================
+   7) Anchor Offset Fix
+   =========================== */
+
+/* Prevent sticky header from covering section titles */
+section[id] {
+  scroll-margin-top: 4.5rem;  /* matches header height */
+}
+
+/* ===========================
+   8) Dark Mode Support
+   =========================== */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #e5e7eb;           /* light gray text */
+    background: #111827;      /* dark background */
+  }
+
+  nav a {
+    border-color: #374151;    /* dark gray borders */
+  }
+
+  nav a:hover {
+    background: #1f2937;      /* slightly lighter dark */
+  }
+
+  section {
+    border-color: #1f2937;
   }
 }
-
-#contact a {
-  color: #16a34a;
-  text-decoration: none;
-  word-break: break-word;
-}
-#contact a:hover { text-decoration: underline; }
-
-#contact p { margin: .35rem 0; }
-
-footer {
-  padding-block: 2rem 3rem;
-  opacity: .85;
-}
-
-.project-link {
-  display: block;   
-  text-decoration: none;
-  color: inherit;   
-}
-
-.project-link article {
-  transition: transform .1s ease, box-shadow .15s ease;
-}
-
-.project-link:hover article {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(0,0,0,.08);
-  cursor: pointer;
-}
-
