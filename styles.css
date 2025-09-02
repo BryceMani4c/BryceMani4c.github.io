@@ -164,3 +164,29 @@ section[id] { scroll-margin-top: 4.5rem; }
 #contact p { margin: .35rem 0; }
 #contact a { color: #22c55e; }
 #contact a:hover { text-decoration: underline; }
+
+/* experience cards */
+.experience-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.experience-link article {
+  border: 1px solid #1f2937;
+  border-radius: .6rem;
+  padding: 1rem;
+  background: #0f172a;
+  box-shadow: 0 6px 16px rgba(0,0,0,.4);
+  transition: transform .1s ease, box-shadow .2s ease;
+}
+.experience-link article:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.5);
+}
+
+/* experience grid (like projects) */
+#experience { display: grid; gap: 1rem; }
+@media (min-width: 700px) {
+  #experience { grid-template-columns: 1fr 1fr; }
+}
+
