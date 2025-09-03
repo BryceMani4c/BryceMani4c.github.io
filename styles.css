@@ -212,29 +212,29 @@ nav a:hover { background: #0f172a; transform: translateY(-1px); }
 }
 .tags span:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.45); }
 
-.Social-section {
+.social-section {
   text-align: center;
   padding: 3rem 1rem;
   border-top: 1px solid #122030;
   margin-top: 3rem;
 }
-.Social-section h2 {
+.social-section h2 {
   font-size: clamp(1.8rem, 2vw + 1rem, 2.5rem);
   margin-bottom: 1rem;
   color: #22c55e;
   text-shadow: 0 0 10px rgba(34,197,94,.3);
 }
-.Social-section p {
+.social-section p {
   color: #cbd5e1;
   margin-bottom: 2rem;
 }
-.Social-buttons {
+.social-buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
-.Social-btn {
+.social-btn {
   display: inline-flex;
   align-items: center;
   gap: .6rem;
@@ -248,20 +248,8 @@ nav a:hover { background: #0f172a; transform: translateY(-1px); }
   font-size: 1rem;
   transition: transform .15s ease, box-shadow .2s ease, color .15s ease, border-color .15s ease, background-color .2s ease;
 }
-.Social-btn i { font-size: 1.2rem; }
-.Social-btn:hover {
+.social-btn i { font-size: 1.2rem; }
+.social-btn:hover {
   transform: translateY(-3px);
   color: #22c55e;
-  border-color: rgba(34,197,94,.35);
-  background: #111827;
-  box-shadow: 0 8px 18px rgba(0,0,0,.45), 0 0 0 6px rgba(34,197,94,.12);
 }
-
-.site-footer {
-  margin-top: 2rem;
-  padding-block: 2rem 2.5rem;
-  border-top: 1px solid #122030;
-  background: #0b0f1a;
-  text-align: center;
-}
-.copyright { margin: 0; opacity: .8; font-size: .95rem; }
