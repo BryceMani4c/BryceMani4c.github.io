@@ -8,173 +8,183 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body>
   <header>
     <h1>Brycemani4c.github.io</h1>
     <nav>
       <a href="#projects">Projects</a>
       <a href="#experience">Work Experience</a>
-      <a href="#contact">Contact</a>
-
-      <div class="dropdown">
-        <button class="dropbtn">Socials <i class="fas fa-caret-down"></i></button>
-        <ul class="dropdown-content" aria-label="Social links">
-          <li><a href="mailto:Bryson.A.Bargas@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Email</a></li>
-          <li><a href="https://github.com/BryceMani4c" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
-          <li><a href="https://www.facebook.com/Brycemaniac" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
-          <li><a href="https://www.instagram.com/brycemaniac" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-          <li><a href="https://www.linkedin.com/in/brysonbargas" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-        </ul>
-      </div>
+      <a href="#Social">Media</a>
     </nav>
   </header>
 
   <main>
-    <section id="about">
-      <h2><span>BRYSON BARGAS</span></h2>
+    <section id="about" class="intro">
+      <div class="intro-text">
+        <h2>BRYSON BARGAS</h2>
+        <p>
+          I am a <strong>Computer Science student</strong> with experience in
+          <span class="highlight">Software Development</span>,
+          <span class="highlight">Databases</span>, and
+          <span class="highlight">Engineering Design</span>.
+          Outside of schooling, I’m a <strong>Dedicated Weightlifter</strong>, applying the same discipline and grit to my work and studies.
+        </p>
+        <div class="intro-actions">
+          <a href="#Social" class="btn ghost">Connect</a>
+        </div>
+      </div>
 
-      <p><span>I am a Computer Science student with experience in Software Development, Databases, and Engineering Design. Outside of schooling, I’m a dedicated weightlifter, applying the same discipline and grit to my work and studies.</span></p>
-
-      <img src="assets/profile.jpg" alt="Portrait of Bryson Bargas" class="profile-pic">
+      <div class="intro-media">
+        <img src="assets/profile.jpg" alt="Portrait of Bryson Bargas" class="profile-pic">
+      </div>
     </section>
 
-<section id="projects" class="cards-section">
-  <h2>Projects</h2>
+    <section id="projects" class="cards-section">
+      <h2>Projects</h2>
 
-  <a href="https://github.com/BryceMani4c/Nitrous-Racing" target="_blank" class="card">
-    <div class="card-media">
-      <img src="assets/proj-nrc.jpg" alt="Nitrous Racing Connections">
-    </div>
-    <div class="card-body">
-      <h3>(NRC) Nitrous Racing Connections</h3>
-      <p>We updated and designed nitrous racing injectors and accompanying parts.</p>
-      <div class="tags">
-        <span>Fusion 360</span>
-        <span>Inventor</span>
-        <span>CAD Design</span>
+      <a href="https://github.com/BryceMani4c/Nitrous-Racing" target="_blank" class="card">
+        <div class="card-media">
+          <img src="assets/proj-nrc.jpg" alt="Nitrous Racing Connections">
+        </div>
+        <div class="card-body">
+          <h3>(NRC) Nitrous Racing Connections</h3>
+          <p>Built and revised 3D models in Autodesk Fusion and Inventor to update nitrous plates to spec. Supported design iterations from prototype to final part.</p>
+          <div class="tags">
+            <span>Fusion 360</span>
+            <span>Inventor</span>
+            <span>CAD Design</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://github.com/BryceMani4c/DND-Dice-Tower" target="_blank" class="card">
+        <div class="card-media">
+          <img src="assets/proj-dnd.jpg" alt="DND Dice Tower">
+        </div>
+        <div class="card-body">
+          <h3>DND Dice Tower</h3>
+          <p>Hobbiest project for a cosmetic addition to dice rolling.</p>
+          <div class="tags">
+            <span>Fusion 360</span>
+            <span>Inventor</span>
+            <span>CAD Design</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <section id="experience" class="cards-section">
+      <h2>Work Experience</h2>
+
+      <a href="#" class="card">
+        <div class="card-media">
+          <img src="assets/exp-starbucks.jpg" alt="Starbucks">
+        </div>
+        <div class="card-body">
+          <h3>Shift Manager — Starbucks</h3>
+          <p>Cookeville, TN • 3 Years</p>
+          <p>Lead shifts, assigned tasks, and keept drinks moving fast without dropping quality. Handled safe counts and cash policies. Solved customer/store issues to continue smooth customer and beverage flow.</p>
+          <div class="tags">
+            <span>Leadership</span>
+            <span>Cash Handling</span>
+            <span>Quality Control</span>
+            <span>Customer Service</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-media">
+          <img src="assets/exp-nrc.jpg" alt="Nitrous Racing Connection">
+        </div>
+        <div class="card-body">
+          <h3>Student Intern — Nitrous Racing Connection</h3>
+          <p>California (Remote) • 1.5 Years</p>
+          <p>Built and revised 3D models in Autodesk Fusion and Inventor to update nitrous plates to spec. Supported design iterations from prototype to final part.</p>
+          <div class="tags">
+            <span>Fusion 360</span>
+            <span>Inventor</span>
+            <span>CAD</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-media">
+          <img src="assets/exp-skillsusa.jpg" alt="SkillsUSA Engineering Project">
+        </div>
+        <div class="card-body">
+          <h3>Team Leader — Spring Hill High School (SkillsUSA)</h3>
+          <p>Spring Hill, TN • 2 Years</p>
+          <p>Led Spring Hill High School's Engineering Technology & Design team, building a football helmet add-on that flags concussion probability on impact with LED indicators.</p>
+          <div class="tags">
+            <span>Team Lead</span>
+            <span>Engineering Design</span>
+            <span>Prototyping</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-media">
+          <img src="assets/exp-bluepig.jpg" alt="The Blue Pig">
+        </div>
+        <div class="card-body">
+          <h3>Expo / Food Runner — The Blue Pig</h3>
+          <p>Cookeville, TN • 4 Months</p>
+          <p>Controlled food flow from kitchen to guests while upholding standards. Prepped all fresh foods and sides while managing flow of food out of kitchen, flexing to other responsibilities as needed.</p>
+          <div class="tags">
+            <span>Expo</span>
+            <span>Quality Control</span>
+            <span>Preparation</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-media">
+          <img src="assets/exp-radish.jpg" alt="Radish Kitchen">
+        </div>
+        <div class="card-body">
+          <h3>Cook — Radish Kitchen</h3>
+          <p>Franklin, TN • 3 Months</p>
+          <p>Managed inventory, butchered and cooked proteins, and handled sides. Supported service line when needed.</p>
+          <div class="tags">
+            <span>Inventory</span>
+            <span>Butchery</span>
+            <span>Grilling</span>
+            <span>Baking</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <section id="Social" class="Social-section">
+      <h2>Media</h2>
+      <p>Always looking forward to connecting, please reach out to me on any of my socials!</p>
+
+      <div class="Social-buttons">
+        <a class="Social-btn" href="mailto:Bryson.A.Bargas@gmail.com" target="_blank">
+          <i class="fas fa-envelope"></i>Email
+        </a>
+        <a class="Social-btn" href="https://github.com/BryceMani4c" target="_blank">
+          <i class="fab fa-github"></i>GitHub
+        </a>
+        <a class="Social-btn" href="https://www.facebook.com/Brycemaniac" target="_blank">
+          <i class="fab fa-facebook"></i>Facebook
+        </a>
+        <a class="Social-btn" href="https://www.instagram.com/brycemaniac" target="_blank">
+          <i class="fab fa-instagram"></i>Instagram
+        </a>
+        <a class="Social-btn" href="https://www.linkedin.com/in/brysonbargas" target="_blank">
+          <i class="fab fa-linkedin"></i>LinkedIn
+        </a>
       </div>
-    </div>
-  </a>
+    </section>
+  </main>
 
-  <a href="https://github.com/BryceMani4c/DND-Dice-Tower" target="_blank" class="card">
-    <div class="card-media">
-      <img src="assets/proj-dnd.jpg" alt="DND Dice Tower">
-    </div>
-    <div class="card-body">
-      <h3>DND Dice Tower</h3>
-      <p>A small hobby project for a cosmetic addition to dice rolling.</p>
-      <div class="tags">
-        <span>Fusion 360</span>
-        <span>Inventor</span>
-        <span>CAD Design</span>
-      </div>
-    </div>
-  </a>
-</section>
-
-
-<section id="experience" class="cards-section">
-  <h2>Work Experience</h2>
-  <!-- Starbucks — Shift Manager -->
-  <a href="#" class="card">
-    <div class="card-media">
-      <img src="assets/exp-starbucks.jpg" alt="Starbucks">
-    </div>
-    <div class="card-body">
-      <h3>Shift Manager — Starbucks</h3>
-      <p>Cookeville, TN • 3 Years</p>
-      <p>Leads shifts, assigns tasks, and keeps drinks moving fast without dropping quality. Handles safe counts and cash policies. Solves customer/store issues on the spot to keep the bar running smooth.</p>
-      <div class="tags">
-        <span>Leadership</span><span>Cash Handeling/Managment</span><span>Quality Control</span><span>Customer Service</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- Nitrous Racing Connection — Student Intern -->
-  <a href="#" class="card">
-    <div class="card-media">
-      <img src="assets/exp-nrc.jpg" alt="Nitrous Racing Connection">
-    </div>
-    <div class="card-body">
-      <h3>Student Intern — Nitrous Racing Connection</h3>
-      <p>California (Remote) • 1.5 Years</p>
-      <p>Built and revised 3D models in Autodesk Fusion and Inventor to update nitrous plates to spec. Supported design iterations from prototype to final part.</p>
-      <div class="tags">
-        <span>Fusion 360</span><span>Inventor</span><span>CAD</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- Spring Hill High — Team Leader (SkillsUSA) -->
-  <a href="#" class="card">
-    <div class="card-media">
-      <img src="assets/exp-skillsusa.jpg" alt="SkillsUSA Engineering Project">
-    </div>
-    <div class="card-body">
-      <h3>Team Leader — Spring Hill High School (SkillsUSA)</h3>
-      <p>Spring Hill, TN • 2 Years</p>
-      <p>Led Spring Hill High School's Engineering Technology & Design team, building a football helmet add-on that flags concussion probability on impact with LED indicators.</p>
-      <div class="tags">
-        <span>Team Lead</span><span>Engineering Design</span><span>Prototyping</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- The Blue Pig — Expo / Food Runner -->
-  <a href="#" class="card">
-    <div class="card-media">
-      <img src="assets/exp-bluepig.jpg" alt="The Blue Pig">
-    </div>
-    <div class="card-body">
-      <h3>Expo / Food Runner — The Blue Pig</h3>
-      <p>Cookeville, TN • 4 Months</p>
-      <p>Controlled food flow from kitchen to guests while holding standards. Prepped fresh veg and sides; jumped in on other stations as needed.</p>
-      <div class="tags">
-        <span>Expo</span><span>Quality Control</span><span>Preparation</span>
-      </div>
-    </div>
-  </a>
-
-  <!-- Radish Kitchen — Cook -->
-  <a href="#" class="card">
-    <div class="card-media">
-      <img src="assets/exp-radish.jpg" alt="Radish Kitchen">
-    </div>
-    <div class="card-body">
-      <h3>Cook — Radish Kitchen</h3>
-      <p>Franklin, TN • 3 Months</p>
-      <p>Managed inventory, butchered and cooked proteins, and handled sides. Supported service line when needed.</p>
-      <div class="tags">
-        <span>Inventory/Prep Managment</span><span>Butchery</span><span>Grilling</span><span>Baking</span>
-      </div>
-    </div>
-  </a>
-</section>
-
-</main>
-
-<footer class="site-footer" id="footer">
-  <div class="footer-inner">
-    <a class="social" href="mailto:Bryson.A.Bargas@gmail.com" target="_blank" aria-label="Email">
-      <i class="fas fa-envelope"></i>
-    </a>
-    <a class="social" href="https://github.com/BryceMani4c" target="_blank" aria-label="GitHub">
-      <i class="fab fa-github"></i>
-    </a>
-    <a class="social" href="https://www.facebook.com/Brycemaniac" target="_blank" aria-label="Facebook">
-      <i class="fab fa-facebook"></i>
-    </a>
-    <a class="social" href="https://www.instagram.com/brycemaniac" target="_blank" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a class="social" href="https://www.linkedin.com/in/brysonbargas" target="_blank" aria-label="LinkedIn">
-      <i class="fab fa-linkedin"></i>
-    </a>
-  </div>
-
-  <p class="copyright">© 2025 Bryson Bargas</p>
-</footer>
-
+  <footer class="site-footer" id="footer">
+    <p class="copyright">© 2025 Bryson Bargas • Built with HTML, CSS, JS</p>
+  </footer>
 </body>
 </html>
