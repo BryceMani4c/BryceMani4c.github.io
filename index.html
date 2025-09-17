@@ -194,7 +194,7 @@
 <section id="certifications" class="certifications-section">
   <h2>Certifications & Awards</h2>
 
-  <div class="cert-gallery" aria-label="Certifications and Awards">
+  <div class="cert-gallery" id="certGallery" aria-label="Certifications and Awards">
     <!-- SkillsUSA SkillPoint Awards -->
     <a class="cert-card" href="https://www.skillsusa.org/recognition/awards-programs" target="_blank" rel="noopener">
       <img src="assets/SkillPoint-1.png" alt="SkillsUSA SkillPoint Award" class="cert-img">
@@ -213,10 +213,87 @@
 
     <!-- GitKraken -->
     <a class="cert-card" href="assets/GitKracken.pdf" target="_blank" rel="noopener">
-      <img src="assets/GitKracken-1.png" alt="GitKraken Certification" class="cert-img">
+      <img src="assets/GitKraken-1.png" alt="GitKraken Certification" class="cert-img">
     </a>
   </div>
 </section>
+
+<!-- Snap centering helper (place before </body>) -->
+<script>
+  (function () {
+    const gallery = document.getElementById('certGallery');
+    if (!gallery) return;
+
+    // Space so first/last cards can snap to center
+    function setEdgePadding() {
+      const card = gallery.querySelector('.cert-card');
+      if (!card) return;
+      const galleryWidth = gallery.clientWidth;
+      const cardWidth = card.clientWidth;
+      const edge = Math.max(0, (galleryWidth - cardWidth) / 2);
+      gallery.style.setProperty('--edge', edge + 'px');
+    }
+
+    setEdgePadding();
+    window.addEventListener('resize', setEdgePadding);
+
+    // Highlight the card closest to the center of the gallery
+    let ticking = false;
+    function updateCenter() {
+      const rect = gallery.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+
+      let bestEl = null;
+      let bestDist = Infinity;
+      gallery.querySelectorAll('.cert-card').forEach(el => {
+        const r = el.getBoundingClientRect();
+        const elCenter = r.left + r.width / 2;
+        const dist = Math.abs(elCenter - centerX);
+        if (dist < bestDist) { bestDist = dist; bestEl = el; }
+      });
+
+      gallery.querySelectorAll('.cert-card.is-center').forEach(el => el.classList.remove('is-center'));
+      if (bestEl) bestEl.classList.add('is-center');
+      ticking = false;
+    }
+
+    gallery.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateCenter);
+        ticking = true;
+      }
+    });
+
+    // Kick off once
+    updateCenter();
+
+    // Optional: snap to nearest on mouseup/touchend for a crisp stop
+    let snapTimer;
+    function snapToNearest() {
+      const cards = Array.from(gallery.querySelectorAll('.cert-card'));
+      if (!cards.length) return;
+      const rect = gallery.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+
+      let target = cards[0];
+      let best = Infinity;
+      cards.forEach(el => {
+        const r = el.getBoundingClientRect();
+        const elCenter = r.left + r.width / 2;
+        const d = Math.abs(elCenter - centerX);
+        if (d < best) { best = d; target = el; }
+      });
+      target.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
+    ['mouseup','touchend','keyup'].forEach(ev => {
+      gallery.addEventListener(ev, () => {
+        clearTimeout(snapTimer);
+        snapTimer = setTimeout(snapToNearest, 80);
+      });
+    });
+  })();
+</script>
 
 
 

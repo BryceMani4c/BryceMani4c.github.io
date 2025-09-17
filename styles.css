@@ -478,3 +478,78 @@ nav a:hover { background: #0f172a; transform: translateY(-1px); }
   background: #0b0f1a;  /* backdrop if transparent */
   display: block;
 }
+
+/* === Certifications & Awards Snap Carousel === */
+.certifications-section {
+  padding-block: 2rem 2.5rem;
+  border: 1px solid #122030;
+  border-radius: 1rem;
+  background: #0e1522;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+  margin-top: 2rem;
+}
+.certifications-section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Horizontal snap container */
+.cert-gallery {
+  --edge: 0px;           /* set by JS so first/last can center */
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem;
+  padding-inline: var(--edge);
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;   /* <-- snap! */
+}
+
+/* Nice scrollbar (WebKit) */
+.cert-gallery::-webkit-scrollbar { height: 10px; }
+.cert-gallery::-webkit-scrollbar-track {
+  background: #0b0f1a; border-radius: 6px;
+}
+.cert-gallery::-webkit-scrollbar-thumb {
+  background: #1f2937; border-radius: 6px;
+}
+.cert-gallery::-webkit-scrollbar-thumb:hover { background: #111827; }
+
+/* Cards: black borders to blend, subtle hover */
+.cert-card {
+  flex: 0 0 auto;
+  width: 280px;                 /* card width */
+  border-radius: .9rem;
+  border: 2px solid #0b0f1a;    /* black border */
+  background: #0f172a;
+  box-shadow: 0 6px 16px rgba(0,0,0,.45);
+  overflow: hidden;
+  scroll-snap-align: center;    /* snap each card to center */
+  transition: transform .18s ease, box-shadow .22s ease, opacity .18s ease;
+  opacity: .75;                 /* de-emphasize side cards */
+}
+.cert-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Center/active card emphasis */
+.cert-card.is-center {
+  transform: scale(1.05);
+  opacity: 1;
+  box-shadow: 0 18px 36px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.03) inset;
+}
+
+/* Image */
+.cert-img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;    /* keep full certificate visible */
+  background: #0b0f1a;    /* backdrop for transparency */
+  display: block;
+}
+
+/* Reduced motion: keep snap, remove scale animation */
+@media (prefers-reduced-motion: reduce) {
+  .cert-card, .cert-card.is-center { transition: none; transform: none; }
+}
