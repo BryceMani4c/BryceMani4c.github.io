@@ -323,3 +323,158 @@ nav a:hover { background: #0f172a; transform: translateY(-1px); }
   text-align: center;
 }
 .copyright { margin: 0; opacity: .8; font-size: .95rem; }
+
+/* === Certifications & Awards Infinite Scroller === */
+.certifications-section {
+  padding-block: 2rem 2.5rem;
+  border: 1px solid #122030;
+  border-radius: 1rem;
+  background: #0e1522;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+  margin-top: 2rem;
+}
+
+.certifications-section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.cert-scroller {
+  --gap: 1rem;
+  --height: 180px;             /* tweak height to your image proportions */
+  --scroll-duration: 35s;       /* slower = bigger number */
+  position: relative;
+  overflow: hidden;
+  padding: .75rem;
+  border-top: 1px solid #122030;
+}
+
+.scroller-track {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  /* Continuous leftward movement */
+  animation: cert-scroll var(--scroll-duration) linear infinite;
+  will-change: transform;
+}
+
+.cert-scroller:hover .scroller-track { 
+  animation-play-state: paused; 
+}
+
+.cert-card {
+  display: block;
+  flex: 0 0 auto;
+  height: var(--height);
+  aspect-ratio: 16 / 9;                 /* consistent card size */
+  border-radius: .8rem;
+  border: 1px solid #122030;
+  background: #0f172a;
+  box-shadow: 0 10px 22px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.02) inset;
+  overflow: hidden;
+  transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.cert-card:focus-visible {
+  outline: 2px solid #22c55e;
+  outline-offset: 3px;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(0,0,0,.55), 0 0 0 1px rgba(34,197,94,.25) inset;
+  border-color: rgba(34,197,94,.35);
+}
+
+.cert-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform .35s ease;
+}
+
+.cert-card:hover .cert-img {
+  transform: scale(1.05);
+}
+
+/* Scroll keyframes: translates by half its width because we duplicate items in JS */
+@keyframes cert-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .scroller-track { animation: none; }
+}
+
+/* === Certifications & Awards Scrollable Gallery === */
+.certifications-section {
+  padding-block: 2rem 2.5rem;
+  border: 1px solid #122030;
+  border-radius: 1rem;
+  background: #0e1522;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+  margin-top: 2rem;
+}
+
+.certifications-section h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #22c55e;
+  text-shadow: 0 0 8px rgba(34,197,94,.4);
+}
+
+/* Horizontal scroll area */
+.cert-gallery {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem;
+  scroll-behavior: smooth;
+}
+
+/* Show a scrollbar nicely */
+.cert-gallery::-webkit-scrollbar {
+  height: 10px;
+}
+.cert-gallery::-webkit-scrollbar-track {
+  background: #0b0f1a;
+  border-radius: 6px;
+}
+.cert-gallery::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 6px;
+}
+.cert-gallery::-webkit-scrollbar-thumb:hover {
+  background: #16a34a;
+}
+
+/* Cert card styling */
+.cert-card {
+  flex: 0 0 auto;
+  width: 260px;        /* consistent card width */
+  border-radius: .8rem;
+  border: 2px solid #22c55e;
+  background: #0f172a;
+  box-shadow: 0 6px 16px rgba(0,0,0,.45);
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: #38d47c;
+  box-shadow: 0 12px 24px rgba(0,0,0,.55);
+}
+
+/* Images inside */
+.cert-img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;  /* keeps proportions, shows full cert image */
+  background: #0b0f1a;  /* backdrop if transparent */
+  display: block;
+}
