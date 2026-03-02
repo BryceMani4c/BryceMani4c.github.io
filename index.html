@@ -162,6 +162,46 @@
     <section id="experience" class="cards-section">
       <h2>Work Experience</h2>
 
+      <a href="https://thebend.church/media/v83pv3n/the-bend-legacy-training-house" target="_blank" class="card">
+        <div class="card-media">
+          <img src="assets/TheBendLegacyTrainingHouse.jpg" alt="The Bend Legacy Training House">
+        </div>
+        <div class="card-body">
+          <h3>Leadership Resident — The Bend Legacy Training House</h3>
+          <p>Cookeville, TN • 1 Year</p>
+          <p>
+            Selected participant in an immersive leadership and discipleship residency focused on character formation, spiritual discipline, servant leadership, and ministry application. Engaged in monthly leadership teaching, ministry rotations, preaching exposure, accountability structure, and marketplace leadership development under pastoral oversight.
+          </p>
+          <div class="tags">
+            <span>Leadership Development</span>
+            <span>Discipleship</span>
+            <span>Servant Leadership</span>
+            <span>Public Speaking</span>
+            <span>Accountability</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" class="card">
+        <div class="card-media">
+          <img src="assets/ROARUnited.jpg" alt="ROAR United">
+        </div>
+        <div class="card-body">
+          <h3>Social Media Manager — ROAR United</h3>
+          <p>Christian Media Initiative • Ongoing</p>
+          <p>
+            Lead content strategy and digital presence for ROAR United, a Christian initiative focused on evangelizing and discipling the next generation. Develop interview formats, manage publishing workflows, analyze engagement metrics, and craft conviction-driven messaging that challenges culture while remaining biblically grounded.
+          </p>
+          <div class="tags">
+            <span>Content Strategy</span>
+            <span>Digital Media</span>
+            <span>Analytics</span>
+            <span>Brand Development</span>
+            <span>Leadership</span>
+          </div>
+        </div>
+      </a>
+
       <a href="#" class="card">
         <div class="card-media">
           <img src="assets/exp-starbucks.jpg" alt="Starbucks">
@@ -210,40 +250,6 @@
           </div>
         </div>
       </a>
-
-      <a href="#" class="card">
-        <div class="card-media">
-          <img src="assets/exp-bluepig.jpg" alt="The Blue Pig">
-        </div>
-        <div class="card-body">
-          <h3>Expo / Food Runner — The Blue Pig</h3>
-          <p>Cookeville, TN • 4 Months</p>
-          <p>Controlled food flow from kitchen to guests while maintaining standards. Prepped fresh sides; supported other stations when needed.</p>
-          <div class="tags">
-            <span>Expo</span>
-            <span>Quality Control</span>
-            <span>Preparation</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="card">
-        <div class="card-media">
-          <img src="assets/exp-radish.jpg" alt="Radish Kitchen">
-        </div>
-        <div class="card-body">
-          <h3>Cook — Radish Kitchen</h3>
-          <p>Franklin, TN • 3 Months</p>
-          <p>Managed inventory, cooked proteins, and supported service line operations.</p>
-          <div class="tags">
-            <span>Inventory</span>
-            <span>Butchery</span>
-            <span>Grilling</span>
-            <span>Baking</span>
-          </div>
-        </div>
-      </a>
-    </section>
 
     <!-- === SKILLS === -->
     <section id="skills" class="cards-section skills-section">
@@ -324,97 +330,6 @@
     <p class="copyright">© 2025 Bryson Bargas • Built with HTML, CSS, JS</p>
   </footer>
 
-  <script>
-  (function () {
-    const gallery = document.getElementById('certGallery');
-    const btnPrev = document.querySelector('.cert-arrow.left');
-    const btnNext = document.querySelector('.cert-arrow.right');
-    if (!gallery) return;
-
-    let originals = Array.from(gallery.children);
-
-    function setEdgePadding() {
-      const card = gallery.querySelector('.cert-card');
-      if (!card) return;
-      const edge = Math.max(0, (gallery.clientWidth - card.clientWidth) / 2);
-      gallery.style.setProperty('--edge', edge + 'px');
-    }
-
-    function cloneSet(where) {
-      const frag = document.createDocumentFragment();
-      originals.forEach((el, idx) => {
-        const c = el.cloneNode(true);
-        c.dataset.clone = where;
-        c.dataset.id = idx;
-        frag.appendChild(c);
-      });
-      return frag;
-    }
-
-    function setupLoop() {
-      gallery.prepend(cloneSet('pre'));
-      gallery.append(cloneSet('post'));
-      originals.forEach((el, idx) => { el.dataset.clone = 'mid'; el.dataset.id = idx; });
-      originals = Array.from(gallery.children);
-      const middleFirst = Array.from(gallery.children).find(el => el.dataset.clone === 'mid');
-      middleFirst && middleFirst.scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
-      updateCenter();
-    }
-
-    function cardStep() {
-      const card = gallery.querySelector('.cert-card');
-      if (!card) return 0;
-      const style = getComputedStyle(gallery);
-      const gap = parseFloat(style.gap || 0);
-      return card.clientWidth + gap;
-    }
-
-    function normalizeIfNeeded() {
-      const rect = gallery.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      let target = null;
-      gallery.querySelectorAll('.cert-card').forEach(el => {
-        const r = el.getBoundingClientRect();
-        const mid = r.left + r.width / 2;
-        if (!target || Math.abs(mid - centerX) < Math.abs(target.mid - centerX)) target = { el, mid };
-      });
-      if (!target) return;
-      const el = target.el;
-      if (el.dataset.clone === 'pre' || el.dataset.clone === 'post') {
-        const id = el.dataset.id;
-        const midMatch = Array.from(gallery.children).find(n => n.dataset.clone === 'mid' && n.dataset.id === id);
-        if (midMatch) midMatch.scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
-      }
-    }
-
-    function nudge(dir) {
-      gallery.scrollBy({ left: dir * cardStep(), behavior: 'smooth' });
-      setTimeout(() => { normalizeIfNeeded(); updateCenter(); }, 280);
-    }
-
-    function updateCenter() {
-      const rect = gallery.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      let bestEl = null, best = Infinity;
-      gallery.querySelectorAll('.cert-card').forEach(el => {
-        const r = el.getBoundingClientRect();
-        const mid = r.left + r.width / 2;
-        const d = Math.abs(mid - centerX);
-        if (d < best) { best = d; bestEl = el; }
-      });
-      gallery.querySelectorAll('.cert-card.is-center').forEach(el => el.classList.remove('is-center'));
-      bestEl && bestEl.classList.add('is-center');
-    }
-
-    gallery.addEventListener('scroll', () => requestAnimationFrame(() => { updateCenter(); normalizeIfNeeded(); }));
-    window.addEventListener('resize', () => { setEdgePadding(); normalizeIfNeeded(); updateCenter(); });
-
-    btnPrev && btnPrev.addEventListener('click', () => nudge(-1));
-    btnNext && btnNext.addEventListener('click', () => nudge(1));
-
-    setEdgePadding();
-    setupLoop();
-  })();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
