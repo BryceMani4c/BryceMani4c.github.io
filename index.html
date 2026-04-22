@@ -1,335 +1,455 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bryson Bargas • Portfolio</title>
+  <title>Bryson Bargas — CS Student, Builder, Lifter</title>
+  <meta name="description" content="Portfolio of Bryson Bargas — Computer Science student with experience in software, databases, and engineering design.">
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="styles.css?v=2025-10-22">
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!-- Preconnects for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=2026-04-22">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23f97316'/%3E%3Cstop offset='1' stop-color='%23ef4444'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0a'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' font-family='Space Grotesk,sans-serif' font-size='30' font-weight='700' fill='url(%23g)'%3EBB%3C/text%3E%3C/svg%3E">
 </head>
 
 <body>
-  <header>
-    <h1>Brycemani4c.github.io</h1>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Work Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#social">Media</a>
-    </nav>
+  <!-- Animated background layer -->
+  <div class="bg-mesh" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+
+  <!-- Top navigation -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#top" class="brand" aria-label="Bryson Bargas — home">
+        <span class="brand-mark">BB</span>
+        <span class="brand-text">
+          <span class="brand-name">Bryson Bargas</span>
+          <span class="brand-sub">brycemani4c</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a href="#projects" data-nav>Projects</a>
+        <a href="#experience" data-nav>Experience</a>
+        <a href="#skills" data-nav>Skills</a>
+        <a href="#certifications" data-nav>Awards</a>
+        <a href="#connect" data-nav>Connect</a>
+      </nav>
+
+    </div>
   </header>
 
+  <a id="top" aria-hidden="true"></a>
+
   <main>
-    <!-- === INTRO === -->
-    <section id="about" class="intro">
-      <div class="intro-text">
-        <h2>BRYSON BARGAS</h2>
-        <p>
-          I am a <strong>Computer Science student</strong> with experience in
-          <span class="highlight">Software Development</span>,
-          <span class="highlight">Databases</span>, and
-          <span class="highlight">Engineering Design</span>.
-          Outside of schooling, I’m a <strong>Dedicated Weightlifter</strong>, applying the same discipline and grit to my work and studies.
-        </p>
-        <div class="intro-actions">
-          <a href="#social" class="btn ghost">Connect</a>
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">
+            <span class="dot"></span> Available for internships &amp; collabs
+          </div>
+          <h1 class="hero-title">
+            <span class="line">Bryson</span>
+            <span class="line gradient-text">Bargas.</span>
+          </h1>
+          <p class="hero-tag">
+            Computer Science student building across
+            <span class="chip">software</span>
+            <span class="chip">databases</span>
+            <span class="chip">engineering design</span>
+            — with the same grit I bring to the weight room.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn primary">
+              <i class="fa-solid fa-folder-open"></i> See my work
+            </a>
+            <a href="#connect" class="btn ghost">
+              <i class="fa-solid fa-paper-plane"></i> Get in touch
+            </a>
+          </div>
+          <ul class="hero-stats">
+            <li><strong>7+</strong><span>Projects shipped</span></li>
+            <li><strong>5+</strong><span>Roles held</span></li>
+            <li><strong>3×</strong><span>SkillsUSA national</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-portrait reveal">
+          <div class="portrait-frame">
+            <img src="assets/profile.jpg" alt="Portrait of Bryson Bargas" class="portrait-img">
+            <div class="portrait-ring" aria-hidden="true"></div>
+            <div class="portrait-badge" aria-hidden="true">
+              <i class="fa-solid fa-dumbbell"></i>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="intro-media">
-        <img src="assets/profile.jpg" alt="Portrait of Bryson Bargas" class="profile-pic">
-      </div>
-    </section>
 
-    <!-- === PROJECTS === -->
-    <section id="projects" class="cards-section">
-      <h2>Projects</h2>
-
-      <a href="https://github.com/BryceMani4c/Nitrous-Racing" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/proj-nrc.jpg" alt="Nitrous Racing Connections">
-        </div>
-        <div class="card-body">
-          <h3>(NRC) Nitrous Racing Connections</h3>
-          <p>Updated legacy 3D models and designed nitrous racing injectors and accompanying parts.</p>
-          <div class="tags">
-            <span>Fusion 360</span>
-            <span>Inventor</span>
-            <span>CAD Design</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://github.com/BryceMani4c/DND-Dice-Tower" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/proj-dnd.jpg" alt="DND Dice Tower">
-        </div>
-        <div class="card-body">
-          <h3>DND Dice Tower</h3>
-          <p>A hobbyist project for a cosmetic addition to dice rolling.</p>
-          <div class="tags">
-            <span>Fusion 360</span>
-            <span>Inventor</span>
-            <span>CAD Design</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://github.com/BryceMani4c/X-Vision" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/XVisionPrototype.jpg" alt="X Vision smart football helmet prototype">
-        </div>
-        <div class="card-body">
-          <h3>X-Vision — Smart Football Helmet</h3>
-          <p>Prototype system aimed at detecting undiagnosed concussions using onboard sensing and processing.</p>
-          <div class="tags">
-            <span>Fusion 360</span>
-            <span>Inventor</span>
-            <span>Raspberry Pi</span>
-            <span>Python</span>
-            <span>CAD</span>
-            <span>Circuitry</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://github.com/BryceMani4c/ParkingGarageSimulator" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/proj-parking.jpg" alt="Parking Lot Garage Manager">
-        </div>
-        <div class="card-body">
-          <h3>Parking Lot Garage Manager</h3>
-          <p>A simulation game where players build and manage parking lots to maximize profit using C++ and linked list data structures.</p>
-          <div class="tags">
-            <span>C++</span>
-            <span>Linked List</span>
-            <span>Data Structures</span>
-            <span>Simulation</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://github.com/BryceMani4c/Cookeville-Weather-Data-Aggregation-Analysis" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/proj-weather.jpg" alt="Cookeville Weather Data Aggregation & Analysis">
-        </div>
-        <div class="card-body">
-          <h3>Cookeville Weather Data Aggregation & Analysis</h3>
-          <p>A multi-language project integrating Shell, C++, Python, and GitHub Actions to aggregate, format, and visualize weather data.</p>
-          <div class="tags">
-            <span>Shell Script</span>
-            <span>C++</span>
-            <span>Python</span>
-            <span>GitHub Actions</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://github.com/BryceMani4c/Frequency-Analyzer" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/proj-frequency.jpg" alt="Frequency Analyzer DevOps project">
-        </div>
-        <div class="card-body">
-          <h3>Frequency Analyzer</h3>
-          <p>A C++ word frequency analyzer with a full DevOps framework: CMake, unit tests, shell test runner, and GitHub Actions CI.</p>
-          <div class="tags">
-            <span>C++</span>
-            <span>CMake</span>
-            <span>Shell Script</span>
-            <span>GitHub Actions</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="https://github.com/BryceMani4c/VideoGame-Library" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/proj-VideoGame-Library.jpg" alt="VideoGame Library Project">
-        </div>
-        <div class="card-body">
-          <h3>VideoGame Library</h3>
-          <p>A C++ program that manages a collection of video games with features for adding, removing, and searching titles.</p>
-          <div class="tags">
-            <span>C++</span>
-            <span>Data Structures</span>
-            <span>Library System</span>
-          </div>
-        </div>  
+      <a href="#projects" class="scroll-hint" aria-label="Scroll to projects">
+        <span></span>
       </a>
     </section>
 
-    <!-- === EXPERIENCE === -->
-    <section id="experience" class="cards-section">
-      <h2>Work Experience</h2>
-
-      <a href="https://thebend.church/media/v83pv3n/the-bend-legacy-training-house" target="_blank" class="card">
-        <div class="card-media">
-          <img src="assets/TheBendLegacyTrainingHouse.jpg" alt="The Bend Legacy Training House">
+    <!-- ========== PROJECTS ========== -->
+    <section id="projects" class="section">
+      <header class="section-head reveal">
+        <span class="section-num">01</span>
+        <div>
+          <h2 class="section-title">Projects</h2>
+          <p class="section-sub">Hardware, software, and everything in between. Click any card to view the repo.</p>
         </div>
-        <div class="card-body">
-          <h3>Leadership Resident — The Bend Legacy Training House</h3>
-          <p>Cookeville, TN • 1 Year</p>
-          <p>
-            Selected participant in an immersive leadership and discipleship residency focused on character formation, spiritual discipline, servant leadership, and ministry application. Engaged in monthly leadership teaching, ministry rotations, preaching exposure, accountability structure, and marketplace leadership development under pastoral oversight.
-          </p>
-          <div class="tags">
-            <span>Leadership Development</span>
-            <span>Discipleship</span>
-            <span>Servant Leadership</span>
-            <span>Public Speaking</span>
-            <span>Accountability</span>
+      </header>
+
+      <div class="card-grid">
+        <a href="https://github.com/BryceMani4c/Nitrous-Racing" target="_blank" rel="noopener" class="card tilt reveal">
+          <div class="card-media">
+            <img src="assets/proj-nrc.jpg" alt="Nitrous Racing Connections">
+            <span class="card-chip"><i class="fa-brands fa-github"></i> View repo</span>
+          </div>
+          <div class="card-body">
+            <h3>Nitrous Racing Connections</h3>
+            <p>Updated legacy 3D models and designed nitrous injectors + accompanying parts for production.</p>
+            <div class="tags">
+              <span>Fusion 360</span><span>Inventor</span><span>CAD</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://github.com/BryceMani4c/DND-Dice-Tower" target="_blank" rel="noopener" class="card tilt reveal">
+          <div class="card-media">
+            <img src="assets/proj-dnd.jpg" alt="DND Dice Tower">
+            <span class="card-chip"><i class="fa-brands fa-github"></i> View repo</span>
+          </div>
+          <div class="card-body">
+            <h3>D&amp;D Dice Tower</h3>
+            <p>A hobbyist build — cosmetic, tactile, and a fun excuse to model cleaner parts in Fusion.</p>
+            <div class="tags">
+              <span>Fusion 360</span><span>Inventor</span><span>CAD</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://github.com/BryceMani4c/X-Vision" target="_blank" rel="noopener" class="card tilt reveal featured">
+          <div class="card-media">
+            <img src="assets/XVisionPrototype.jpg" alt="X-Vision smart football helmet prototype">
+            <span class="card-chip flame"><i class="fa-solid fa-fire"></i> Flagship</span>
+          </div>
+          <div class="card-body">
+            <h3>X-Vision — Smart Football Helmet</h3>
+            <p>Prototype helmet that detects undiagnosed concussions with onboard sensors and a Pi-based processing pipeline.</p>
+            <div class="tags">
+              <span>Raspberry Pi</span><span>Python</span><span>CAD</span><span>Circuitry</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://github.com/BryceMani4c/ParkingGarageSimulator" target="_blank" rel="noopener" class="card tilt reveal">
+          <div class="card-media">
+            <img src="assets/proj-parking.jpg" alt="Parking Garage Simulator">
+            <span class="card-chip"><i class="fa-brands fa-github"></i> View repo</span>
+          </div>
+          <div class="card-body">
+            <h3>Parking Garage Simulator</h3>
+            <p>Build + manage lots to maximize profit — C++ sim backed by linked-list data structures.</p>
+            <div class="tags">
+              <span>C++</span><span>Linked List</span><span>Simulation</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://github.com/BryceMani4c/Cookeville-Weather-Data-Aggregation-Analysis" target="_blank" rel="noopener" class="card tilt reveal">
+          <div class="card-media">
+            <img src="assets/proj-weather.jpg" alt="Cookeville Weather Data Aggregation">
+            <span class="card-chip"><i class="fa-brands fa-github"></i> View repo</span>
+          </div>
+          <div class="card-body">
+            <h3>Cookeville Weather Analyzer</h3>
+            <p>Multi-language pipeline — Shell, C++, Python — that aggregates, formats, and visualizes weather data via GitHub Actions.</p>
+            <div class="tags">
+              <span>Shell</span><span>C++</span><span>Python</span><span>CI/CD</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://github.com/BryceMani4c/Frequency-Analyzer" target="_blank" rel="noopener" class="card tilt reveal">
+          <div class="card-media">
+            <img src="assets/proj-frequency.jpg" alt="Frequency Analyzer">
+            <span class="card-chip"><i class="fa-brands fa-github"></i> View repo</span>
+          </div>
+          <div class="card-body">
+            <h3>Frequency Analyzer</h3>
+            <p>Word-frequency tool wrapped in real DevOps — CMake, unit tests, a shell test runner, and GitHub Actions CI.</p>
+            <div class="tags">
+              <span>C++</span><span>CMake</span><span>GitHub Actions</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://github.com/BryceMani4c/VideoGame-Library" target="_blank" rel="noopener" class="card tilt reveal">
+          <div class="card-media">
+            <img src="assets/proj-VideoGame-Library.jpg" alt="Video Game Library">
+            <span class="card-chip"><i class="fa-brands fa-github"></i> View repo</span>
+          </div>
+          <div class="card-body">
+            <h3>Video Game Library</h3>
+            <p>C++ program that manages a collection — add, remove, search titles on top of clean data structures.</p>
+            <div class="tags">
+              <span>C++</span><span>Data Structures</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ========== EXPERIENCE ========== -->
+    <section id="experience" class="section">
+      <header class="section-head reveal">
+        <span class="section-num">02</span>
+        <div>
+          <h2 class="section-title">Work &amp; Leadership</h2>
+          <p class="section-sub">Places that taught me to lead, ship, and stay steady under pressure.</p>
+        </div>
+      </header>
+
+      <div class="timeline">
+        <a href="https://thebend.church/media/v83pv3n/the-bend-legacy-training-house" target="_blank" rel="noopener" class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-media"><img src="assets/TheBendLegacyTrainingHouse.jpg" alt="The Bend Legacy Training House"></div>
+          <div class="tl-body">
+            <div class="tl-meta">
+              <span class="tl-role">Leadership Resident</span>
+              <span class="tl-where">The Bend Legacy Training House · Cookeville, TN</span>
+              <span class="tl-span">Current · Ongoing</span>
+            </div>
+            <p>Immersive leadership &amp; discipleship residency — character formation, servant leadership, ministry rotations, preaching exposure, and marketplace leadership under pastoral oversight.</p>
+            <div class="tags">
+              <span>Leadership</span><span>Discipleship</span><span>Public Speaking</span><span>Accountability</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://roar-united.carrd.co" target="_blank" rel="noopener" class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-media"><img src="assets/ROARUnited.jpg" alt="ROAR United"></div>
+          <div class="tl-body">
+            <div class="tl-meta">
+              <span class="tl-role">Social Media Manager</span>
+              <span class="tl-where">ROAR United · Christian Media Initiative</span>
+              <span class="tl-span">Ongoing</span>
+            </div>
+            <p>Lead content strategy and digital presence — interview formats, publishing workflows, engagement analytics, and conviction-driven messaging that challenges culture while staying biblically grounded.</p>
+            <div class="tags">
+              <span>Content Strategy</span><span>Analytics</span><span>Brand</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://share.google/xNVMoD95xo86R1E19" target="_blank" rel="noopener" class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-media"><img src="assets/exp-starbucks.jpg" alt="Starbucks"></div>
+          <div class="tl-body">
+            <div class="tl-meta">
+              <span class="tl-role">Shift Manager</span>
+              <span class="tl-where">Starbucks · Cookeville, TN</span>
+              <span class="tl-span">3 Years</span>
+            </div>
+            <p>Led shifts, assigned tasks, and kept service fast without dropping quality. Handled safe counts &amp; cash policy, and resolved customer/store issues to keep operations smooth.</p>
+            <div class="tags">
+              <span>Leadership</span><span>Cash Handling</span><span>QC</span><span>Customer Service</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-media"><img src="assets/exp-nrc.jpg" alt="Nitrous Racing Connection"></div>
+          <div class="tl-body">
+            <div class="tl-meta">
+              <span class="tl-role">Student Intern</span>
+              <span class="tl-where">Nitrous Racing Connection · California (Remote)</span>
+              <span class="tl-span">1.5 Years</span>
+            </div>
+            <p>Built and revised 3D models in Fusion &amp; Inventor to update nitrous plates to spec. Supported design iterations from prototype to final part.</p>
+            <div class="tags">
+              <span>Fusion 360</span><span>Inventor</span><span>CAD</span>
+            </div>
           </div>
         </div>
-      </a>
 
-      <a href="#" class="card">
-        <div class="card-media">
-          <img src="assets/ROARUnited.jpg" alt="ROAR United">
-        </div>
-        <div class="card-body">
-          <h3>Social Media Manager — ROAR United</h3>
-          <p>Christian Media Initiative • Ongoing</p>
-          <p>
-            Lead content strategy and digital presence for ROAR United, a Christian initiative focused on evangelizing and discipling the next generation. Develop interview formats, manage publishing workflows, analyze engagement metrics, and craft conviction-driven messaging that challenges culture while remaining biblically grounded.
-          </p>
-          <div class="tags">
-            <span>Content Strategy</span>
-            <span>Digital Media</span>
-            <span>Analytics</span>
-            <span>Brand Development</span>
-            <span>Leadership</span>
+        <a href="https://www.skillsusa.org" target="_blank" rel="noopener" class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-media"><img src="assets/exp-skillsusa.jpg" alt="SkillsUSA Engineering Project"></div>
+          <div class="tl-body">
+            <div class="tl-meta">
+              <span class="tl-role">Team Leader</span>
+              <span class="tl-where">SkillsUSA — Spring Hill High School</span>
+              <span class="tl-span">3 Years · National every year</span>
+            </div>
+            <p>Led Engineering Technology &amp; Design for three years — placed nationally every year we competed.</p>
+            <div class="tags">
+              <span>Team Lead</span><span>Engineering Design</span><span>Prototyping</span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
+    </section>
 
-      <a href="#" class="card">
-        <div class="card-media">
-          <img src="assets/exp-starbucks.jpg" alt="Starbucks">
+    <!-- ========== SKILLS ========== -->
+    <section id="skills" class="section">
+      <header class="section-head reveal">
+        <span class="section-num">03</span>
+        <div>
+          <h2 class="section-title">Skills &amp; Tooling</h2>
+          <p class="section-sub">What I reach for first — and where I've shipped real things.</p>
         </div>
-        <div class="card-body">
-          <h3>Shift Manager — Starbucks</h3>
-          <p>Cookeville, TN • 3 Years</p>
-          <p>Leads shifts, assigns tasks, and ensures fast service without dropping quality. Handles safe counts and cash policies. Solves customer/store issues to keep operations smooth.</p>
-          <div class="tags">
-            <span>Leadership</span>
-            <span>Cash Handling</span>
-            <span>Quality Control</span>
-            <span>Customer Service</span>
-          </div>
-        </div>
-      </a>
+      </header>
 
-      <a href="#" class="card">
-        <div class="card-media">
-          <img src="assets/exp-nrc.jpg" alt="Nitrous Racing Connection">
-        </div>
-        <div class="card-body">
-          <h3>Student Intern — Nitrous Racing Connection</h3>
-          <p>California (Remote) • 1.5 Years</p>
-          <p>Built and revised 3D models in Autodesk Fusion and Inventor to update nitrous plates to spec. Supported design iterations from prototype to final part.</p>
-          <div class="tags">
-            <span>Fusion 360</span>
-            <span>Inventor</span>
-            <span>CAD</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="#" class="card">
-        <div class="card-media">
-          <img src="assets/exp-skillsusa.jpg" alt="SkillsUSA Engineering Project">
-        </div>
-        <div class="card-body">
-          <h3>Team Leader — Spring Hill High School (SkillsUSA)</h3>
-          <p>Spring Hill, TN • 3 Years</p>
-          <p>Led the Engineering Technology & Design team for 3 years, placing nationally every year we competed.</p>
-          <div class="tags">
-            <span>Team Lead</span>
-            <span>Engineering Design</span>
-            <span>Prototyping</span>
-          </div>
-        </div>
-      </a>
-
-    <!-- === SKILLS === -->
-    <section id="skills" class="cards-section skills-section">
-      <h2>Skills</h2>
       <div class="skill-grid">
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon"><i class="fa-solid fa-code"></i></div>
-          <div class="skill-text">C++, Python, SQL, HTML</div>
+          <div class="skill-text">
+            <h4>Languages</h4>
+            <p>C++, Python, SQL, HTML/CSS, JavaScript</p>
+          </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
-          <div class="skill-text">SQL & Database Management</div>
+          <div class="skill-text">
+            <h4>Data</h4>
+            <p>Relational DB design, SQL, schema &amp; query tuning</p>
+          </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon"><i class="fa-solid fa-diagram-project"></i></div>
-          <div class="skill-text">System Design & Architecture</div>
+          <div class="skill-text">
+            <h4>Systems</h4>
+            <p>Architecture, data structures, system design</p>
+          </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon"><i class="fa-solid fa-drafting-compass"></i></div>
-          <div class="skill-text">CAD Design (Fusion, Inventor, SolidWorks)</div>
+          <div class="skill-text">
+            <h4>CAD</h4>
+            <p>Fusion 360, Inventor, SolidWorks</p>
+          </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon"><i class="fa-brands fa-git-alt"></i></div>
-          <div class="skill-text">Git & DevOps Workflow</div>
+          <div class="skill-text">
+            <h4>DevOps</h4>
+            <p>Git, GitHub Actions, CMake, shell automation</p>
+          </div>
         </div>
-        <div class="skill-card">
+        <div class="skill-card reveal">
           <div class="skill-icon"><i class="fa-solid fa-cubes"></i></div>
-          <div class="skill-text">3D Modeling & Prototyping</div>
+          <div class="skill-text">
+            <h4>Prototyping</h4>
+            <p>3D modeling, electronics, Raspberry Pi, sensors</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- === CERTIFICATIONS === -->
-    <section id="certifications" class="certifications-section">
-      <h2>Certifications & Awards</h2>
+    <!-- ========== CERTIFICATIONS ========== -->
+    <section id="certifications" class="section">
+      <header class="section-head reveal">
+        <span class="section-num">04</span>
+        <div>
+          <h2 class="section-title">Certifications &amp; Awards</h2>
+          <p class="section-sub">Proof-of-work from classrooms, competitions, and credentials.</p>
+        </div>
+      </header>
 
-      <div class="cert-wrap">
-        <button class="cert-arrow left" aria-label="Previous">
+      <div class="cert-wrap reveal">
+        <button class="cert-arrow left" aria-label="Previous certification">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
 
         <div class="cert-gallery" id="certGallery" aria-label="Certifications and Awards">
           <a class="cert-card" href="assets/SkillPoint-1.png" target="_blank" rel="noopener">
             <img class="cert-img" src="assets/SkillPoint-1.png" alt="SkillsUSA SkillPoint Award">
+            <span class="cert-label">SkillsUSA · SkillPoint</span>
           </a>
           <a class="cert-card" href="assets/SkillPoint2018-1.png" target="_blank" rel="noopener">
             <img class="cert-img" src="assets/SkillPoint2018-1.png" alt="SkillsUSA SkillPoint Award 2018">
+            <span class="cert-label">SkillsUSA · 2018</span>
           </a>
           <a class="cert-card" href="assets/skillpoint2019-1.png" target="_blank" rel="noopener">
             <img class="cert-img" src="assets/skillpoint2019-1.png" alt="SkillsUSA SkillPoint Award 2019">
+            <span class="cert-label">SkillsUSA · 2019</span>
           </a>
           <a class="cert-card" href="assets/GitKraken-1.png" target="_blank" rel="noopener">
             <img class="cert-img" src="assets/GitKraken-1.png" alt="GitKraken Certification">
+            <span class="cert-label">GitKraken Certified</span>
+          </a>
+          <a class="cert-card" href="assets/CertificateOfCompletion_A_Guide_to_Understanding_Ethics_in_Technology.png" target="_blank" rel="noopener">
+            <img class="cert-img" src="assets/CertificateOfCompletion_A_Guide_to_Understanding_Ethics_in_Technology.png" alt="Ethics in Technology Certificate">
+            <span class="cert-label">Ethics in Tech</span>
+          </a>
+          <a class="cert-card" href="assets/CertificateOfCompletion_Nano_Tips_for_Landing_Your_Dream_Internship_with_Sho_Dewan.png" target="_blank" rel="noopener">
+            <img class="cert-img" src="assets/CertificateOfCompletion_Nano_Tips_for_Landing_Your_Dream_Internship_with_Sho_Dewan.png" alt="Nano Tips Internship Certificate">
+            <span class="cert-label">Internship Nano Tips</span>
+          </a>
+          <a class="cert-card" href="assets/LinkedInLearning_Rock_Your_linkedin_Profile-1.png" target="_blank" rel="noopener">
+            <img class="cert-img" src="assets/LinkedInLearning_Rock_Your_linkedin_Profile-1.png" alt="Rock Your LinkedIn Profile Certificate">
+            <span class="cert-label">LinkedIn Profile</span>
           </a>
         </div>
 
-        <button class="cert-arrow right" aria-label="Next">
+        <button class="cert-arrow right" aria-label="Next certification">
           <i class="fa-solid fa-chevron-right"></i>
         </button>
       </div>
     </section>
 
-    <!-- === SOCIAL === -->
-    <section id="social" class="social-section">
-      <h2>Media</h2>
-      <p>Always open to connect — reach out via any of the platforms below.</p>
-      <div class="social-buttons">
-        <a class="social-btn" href="mailto:Bryson.A.Bargas@gmail.com" target="_blank"><i class="fas fa-envelope"></i>Email</a>
-        <a class="social-btn" href="https://github.com/BryceMani4c" target="_blank"><i class="fab fa-github"></i>GitHub</a>
-        <a class="social-btn" href="https://www.facebook.com/Brycemaniac" target="_blank"><i class="fab fa-facebook"></i>Facebook</a>
-        <a class="social-btn" href="https://www.instagram.com/brycemaniac" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
-        <a class="social-btn" href="https://www.linkedin.com/in/brysonbargas" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
+    <!-- ========== CONNECT ========== -->
+    <section id="connect" class="section connect-section">
+      <header class="section-head reveal center">
+        <span class="section-num">05</span>
+        <div>
+          <h2 class="section-title">Let's connect</h2>
+          <p class="section-sub">Internships, collaborations, or a good conversation — my inbox is open.</p>
+        </div>
+      </header>
+
+      <div class="connect-card reveal">
+        <a class="social-btn" href="mailto:Bryson.A.Bargas@gmail.com"><i class="fas fa-envelope"></i><span>Email</span></a>
+        <a class="social-btn" href="https://github.com/BryceMani4c" target="_blank" rel="noopener"><i class="fab fa-github"></i><span>GitHub</span></a>
+        <a class="social-btn" href="https://www.linkedin.com/in/brysonbargas" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i><span>LinkedIn</span></a>
+        <a class="social-btn" href="https://www.instagram.com/brycemaniac" target="_blank" rel="noopener"><i class="fab fa-instagram"></i><span>Instagram</span></a>
+        <a class="social-btn" href="https://www.facebook.com/Brycemaniac" target="_blank" rel="noopener"><i class="fab fa-facebook"></i><span>Facebook</span></a>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer" id="footer">
-    <p class="copyright">© 2025 Bryson Bargas • Built with HTML, CSS, JS</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <span class="brand-mark small">BB</span>
+        <span>Bryson Bargas</span>
+      </div>
+      <p class="copyright">© <span id="year">2026</span> · Designed &amp; built with HTML, CSS, JS</p>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js?v=2026-04-22"></script>
 </body>
 </html>

@@ -1,376 +1,271 @@
-// ============================================
-// Load at top instantly (no visible scroll-up)
-// ============================================
-(function () {
-  try {
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  } catch {}
+/* ============================================================
+   Bryson Bargas — Portfolio script
+   - Scroll reset on load
+   - Theme toggle (dark/light, persisted)
+   - Mobile nav toggle
+   - Scroll progress bar
+   - Active nav highlighting (IntersectionObserver)
+   - Scroll-reveal animations
+   - Card 3D tilt on hover
+   - Back-to-top
+   - Certifications carousel (infinite loop, drag momentum, wheel horizontal)
+   - Auto-update footer year
+   ============================================================ */
 
+// ------------------------------------------------------------
+// Reset scroll position on load so anchors don't carry over
+// ------------------------------------------------------------
+(function scrollReset() {
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch {}
   const root = document.documentElement;
-
-  // If your CSS has `scroll-behavior: smooth`, a programmatic scroll can animate.
-  // Force "auto" just long enough to jump to top, then restore immediately.
-  const prevInline = root.style.scrollBehavior;
+  const prev = root.style.scrollBehavior;
   root.style.scrollBehavior = "auto";
   window.scrollTo(0, 0);
+  requestAnimationFrame(() => { root.style.scrollBehavior = prev; });
+})();
 
-  // Restore after first frame so normal smooth anchor navigation still works.
-  requestAnimationFrame(() => {
-    root.style.scrollBehavior = prevInline;
+// (Theme toggle and mobile-nav toggle removed — not needed.)
+
+// ------------------------------------------------------------
+// Header shadow on scroll + scroll progress
+// ------------------------------------------------------------
+(function scrollEffects() {
+  const header = document.getElementById("siteHeader");
+  const bar = document.getElementById("scrollBar");
+  const top = document.getElementById("backToTop");
+
+  const onScroll = () => {
+    const y = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docH > 0 ? (y / docH) * 100 : 0;
+
+    if (header) header.classList.toggle("is-scrolled", y > 10);
+    if (bar) bar.style.width = pct + "%";
+    if (top) top.classList.toggle("show", y > 400);
+  };
+
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  if (top) top.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+})();
+
+// ------------------------------------------------------------
+// Active nav highlighting via IntersectionObserver
+// ------------------------------------------------------------
+(function activeNav() {
+  const links = document.querySelectorAll(".main-nav a[data-nav]");
+  if (!links.length) return;
+
+  const linkMap = new Map();
+  links.forEach((a) => {
+    const id = a.getAttribute("href")?.slice(1);
+    if (id) linkMap.set(id, a);
+  });
+
+  const sections = [...linkMap.keys()]
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      // Pick the section with the largest intersection ratio as "active"
+      let best = null;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+      }
+      if (!best) return;
+
+      links.forEach((a) => a.classList.remove("active"));
+      const a = linkMap.get(best.target.id);
+      if (a) a.classList.add("active");
+    },
+    { rootMargin: "-40% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+  );
+
+  sections.forEach((s) => io.observe(s));
+})();
+
+// ------------------------------------------------------------
+// Scroll reveal
+// ------------------------------------------------------------
+(function reveal() {
+  const els = document.querySelectorAll(".reveal");
+  if (!els.length) return;
+
+  const io = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+  );
+
+  // Stagger siblings within a grid for a nicer wave effect
+  els.forEach((el, i) => {
+    el.style.transitionDelay = (i % 8 * 60) + "ms";
+    io.observe(el);
   });
 })();
 
-// ============================================
-// Certifications Carousel (Smooth + Drag + Momentum)
-// ============================================
-(function () {
+// ------------------------------------------------------------
+// Card 3D tilt on pointer move (disabled on touch / reduced-motion)
+// ------------------------------------------------------------
+(function cardTilt() {
+  const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const coarse = window.matchMedia?.("(pointer: coarse)").matches;
+  if (reduce || coarse) return;
+
+  const MAX = 6; // degrees
+
+  document.querySelectorAll(".card.tilt").forEach((card) => {
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-6px) rotateX(${(-y * MAX).toFixed(2)}deg) rotateY(${(x * MAX).toFixed(2)}deg)`;
+    });
+    card.addEventListener("pointerleave", () => {
+      card.style.transform = "";
+    });
+  });
+})();
+
+// ------------------------------------------------------------
+// Footer year auto-update
+// ------------------------------------------------------------
+(function setYear() {
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+})();
+
+// ============================================================
+// Certifications carousel (simple, bounded, reliable)
+// — arrows step one card at a time, wrapping at the ends
+// — highlights the card closest to center
+// — supports drag-to-scroll and wheel → horizontal
+// ============================================================
+(function certCarousel() {
   const gallery = document.getElementById("certGallery");
   const btnPrev = document.querySelector(".cert-arrow.left");
   const btnNext = document.querySelector(".cert-arrow.right");
-
   if (!gallery) return;
 
-  // ---------- Utilities ----------
-  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const cards = Array.from(gallery.querySelectorAll(".cert-card"));
+  if (!cards.length) return;
 
-  function getGapPx() {
-    const style = getComputedStyle(gallery);
-    const gap = parseFloat(style.gap || style.columnGap || "0");
-    return Number.isFinite(gap) ? gap : 0;
-  }
-
-  function getCards() {
-    return Array.from(gallery.querySelectorAll(".cert-card"));
-  }
-
-  function getCenterX() {
-    const r = gallery.getBoundingClientRect();
-    return r.left + r.width / 2;
-  }
-
-  function cardCenterX(cardEl) {
-    const r = cardEl.getBoundingClientRect();
-    return r.left + r.width / 2;
-  }
-
+  // --- Edge padding so first/last cards can center
   function setEdgePadding() {
-    const card = gallery.querySelector(".cert-card");
-    if (!card) return;
-    const edge = Math.max(0, (gallery.clientWidth - card.clientWidth) / 2);
-    gallery.style.setProperty("--edge", `${edge}px`);
+    const first = cards[0];
+    const edge = Math.max(0, (gallery.clientWidth - first.clientWidth) / 2);
+    gallery.style.setProperty("--edge", edge + "px");
   }
 
-  function instantScrollToCard(cardEl) {
-    if (!cardEl) return;
-    cardEl.scrollIntoView({ behavior: "instant", inline: "center", block: "nearest" });
-  }
-
-  // rAF eased scroll for consistent "smoothness" on arrow clicks
-  let scrollAnim = null;
-  function animateScrollLeftTo(targetLeft, durationMs = 360) {
-    if (scrollAnim) cancelAnimationFrame(scrollAnim);
-
-    const startLeft = gallery.scrollLeft;
-    const delta = targetLeft - startLeft;
-    const start = performance.now();
-
-    const step = (now) => {
-      const t = clamp((now - start) / durationMs, 0, 1);
-      gallery.scrollLeft = startLeft + delta * easeOutCubic(t);
-      if (t < 1) scrollAnim = requestAnimationFrame(step);
-    };
-
-    scrollAnim = requestAnimationFrame(step);
-  }
-
-  // Find the card closest to the visual center
-  function closestToCenter() {
-    const center = getCenterX();
-    let best = null;
-    let bestD = Infinity;
-
-    for (const c of getCards()) {
-      const d = Math.abs(cardCenterX(c) - center);
-      if (d < bestD) {
-        bestD = d;
-        best = c;
-      }
-    }
-    return best;
-  }
-
-  // Compute target scrollLeft to center a given card
-  function targetScrollLeftForCard(cardEl) {
+  // --- Center highlight
+  function updateCenterHighlight() {
     const galleryRect = gallery.getBoundingClientRect();
-    const cardRect = cardEl.getBoundingClientRect();
-
-    const galleryCenter = galleryRect.left + galleryRect.width / 2;
-    const cardCenter = cardRect.left + cardRect.width / 2;
-
-    // If cardCenter is to the right, increase scrollLeft, etc.
-    const deltaPx = cardCenter - galleryCenter;
-    return gallery.scrollLeft + deltaPx;
-  }
-
-  // ---------- Infinite loop clones ----------
-  let originals = Array.from(gallery.children);
-
-  function cloneSet(where) {
-    const frag = document.createDocumentFragment();
-    originals.forEach((el, idx) => {
-      const c = el.cloneNode(true);
-      c.dataset.clone = where;
-      c.dataset.id = String(idx);
-      frag.appendChild(c);
-    });
-    return frag;
-  }
-
-  function setupLoop() {
-    // Mark originals as middle
-    originals.forEach((el, idx) => {
-      el.dataset.clone = "mid";
-      el.dataset.id = String(idx);
-    });
-
-    // Clone before and after
-    gallery.prepend(cloneSet("pre"));
-    gallery.append(cloneSet("post"));
-
-    // Jump to the first "mid" card centered
-    const firstMid = Array.from(gallery.children).find((el) => el.dataset.clone === "mid");
-    instantScrollToCard(firstMid);
-  }
-
-  // If we end up centered on a clone, instantly normalize to the corresponding mid card
-  function normalizeCloneIfNeeded(centerCard) {
-    if (!centerCard) return;
-
-    const cloneType = centerCard.dataset.clone;
-    if (cloneType !== "pre" && cloneType !== "post") return;
-
-    const id = centerCard.dataset.id;
-    const midMatch = Array.from(gallery.children).find(
-      (n) => n.dataset.clone === "mid" && n.dataset.id === id
-    );
-
-    if (midMatch) {
-      instantScrollToCard(midMatch);
+    const center = galleryRect.left + galleryRect.width / 2;
+    let best = null, bestDist = Infinity;
+    for (const c of cards) {
+      const r = c.getBoundingClientRect();
+      const d = Math.abs(r.left + r.width / 2 - center);
+      if (d < bestDist) { bestDist = d; best = c; }
     }
+    cards.forEach((c) => c.classList.toggle("is-center", c === best));
+    return cards.indexOf(best);
   }
 
-  // ---------- Center highlighting via IntersectionObserver ----------
-  // More efficient than doing bounding math on every scroll tick. :contentReference[oaicite:4]{index=4}
-  let io = null;
-  function setupCenterObserver() {
-    if (io) io.disconnect();
-
-    const candidates = getCards();
-    if (!candidates.length) return;
-
-    io = new IntersectionObserver(
-      (entries) => {
-        // Choose the entry with the highest intersection ratio as "center-ish"
-        let best = null;
-
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
-        }
-
-        // If nothing intersecting strongly, fall back to closest-to-center
-        const chosen = best ? best.target : closestToCenter();
-
-        // Update class
-        gallery.querySelectorAll(".cert-card.is-center").forEach((el) => el.classList.remove("is-center"));
-        if (chosen) chosen.classList.add("is-center");
-
-        // Normalize clones smoothly (instant jump, but should be unnoticeable)
-        normalizeCloneIfNeeded(chosen);
-      },
-      {
-        root: gallery,
-        // A tight band helps "center" selection feel stable.
-        // Negative margins reduce the effective viewport to its center band.
-        rootMargin: "0px -35% 0px -35%",
-        threshold: [0.35, 0.5, 0.65, 0.8, 0.95],
-      }
-    );
-
-    for (const c of candidates) io.observe(c);
+  // --- Smooth scroll a card to center
+  function scrollCardToCenter(card) {
+    if (!card) return;
+    const galleryRect = gallery.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const delta = (cardRect.left + cardRect.width / 2) - (galleryRect.left + galleryRect.width / 2);
+    gallery.scrollTo({ left: gallery.scrollLeft + delta, behavior: "smooth" });
   }
 
-  // ---------- Arrow navigation (centered-step) ----------
-  function nudge(dir) {
-    const cards = getCards();
-    if (!cards.length) return;
-
-    const current = closestToCenter();
-    if (!current) return;
-
-    const idx = cards.indexOf(current);
-    const nextIdx = clamp(idx + dir, 0, cards.length - 1);
-    const next = cards[nextIdx];
-
-    const targetLeft = targetScrollLeftForCard(next);
-    animateScrollLeftTo(targetLeft, 360);
-
-    // Normalize + center class will be handled by IntersectionObserver.
+  // --- Arrow step (wraps)
+  function step(dir) {
+    const currentIdx = updateCenterHighlight();
+    const nextIdx = (currentIdx + dir + cards.length) % cards.length;
+    scrollCardToCenter(cards[nextIdx]);
   }
 
-  // ---------- Wheel-to-horizontal ----------
-  function onWheel(e) {
-    // Turn vertical wheel into horizontal scroll.
+  // --- Drag to scroll (with click-cancel on drag)
+  let dragging = false, startX = 0, startLeft = 0, moved = false;
+  gallery.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    dragging = true;
+    moved = false;
+    startX = e.clientX;
+    startLeft = gallery.scrollLeft;
+    gallery.setPointerCapture(e.pointerId);
+    gallery.style.scrollSnapType = "none";
+    gallery.style.cursor = "grabbing";
+  });
+  gallery.addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    gallery.scrollLeft = startLeft - dx;
+  });
+  const endDrag = (e) => {
+    if (!dragging) return;
+    dragging = false;
+    try { gallery.releasePointerCapture(e.pointerId); } catch {}
+    gallery.style.scrollSnapType = "";
+    gallery.style.cursor = "";
+    if (moved) {
+      gallery.dataset.dragging = "1";
+      setTimeout(() => delete gallery.dataset.dragging, 0);
+      // snap to nearest card after drag
+      const idx = updateCenterHighlight();
+      if (idx >= 0) scrollCardToCenter(cards[idx]);
+    }
+  };
+  gallery.addEventListener("pointerup", endDrag);
+  gallery.addEventListener("pointercancel", endDrag);
+  gallery.addEventListener("click", (e) => {
+    if (gallery.dataset.dragging === "1") { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+
+  // --- Wheel-to-horizontal
+  gallery.addEventListener("wheel", (e) => {
     if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
     e.preventDefault();
     gallery.scrollLeft += e.deltaY;
-  }
+  }, { passive: false });
 
-  // ---------- Drag with momentum ----------
-  // Common pattern for momentum: track velocity while dragging then decay. :contentReference[oaicite:5]{index=5}
-  let dragging = false;
-  let dragStartX = 0;
-  let dragStartLeft = 0;
+  // --- Update highlight as user scrolls
+  let scrollRaf = null;
+  gallery.addEventListener("scroll", () => {
+    if (scrollRaf) cancelAnimationFrame(scrollRaf);
+    scrollRaf = requestAnimationFrame(updateCenterHighlight);
+  }, { passive: true });
 
-  let lastMoveX = 0;
-  let lastMoveT = 0;
-  let velocity = 0; // px/ms
+  // --- Arrows
+  if (btnPrev) btnPrev.addEventListener("click", () => step(-1));
+  if (btnNext) btnNext.addEventListener("click", () => step(1));
 
-  let momentumRaf = null;
-  let didDrag = false;
-
-  function stopMomentum() {
-    if (momentumRaf) cancelAnimationFrame(momentumRaf);
-    momentumRaf = null;
-  }
-
-  function startMomentum() {
-    stopMomentum();
-
-    const friction = 0.92; // closer to 1 = longer glide
-    const minVel = 0.02;   // px/ms cutoff
-
-    const tick = () => {
-      // Apply velocity
-      gallery.scrollLeft -= velocity * 16; // approx per-frame step @60fps
-      velocity *= friction;
-
-      if (Math.abs(velocity) < minVel) {
-        momentumRaf = null;
-
-        // After momentum stops, softly center the nearest card for a "finished" feel
-        const center = closestToCenter();
-        if (center) {
-          const targetLeft = targetScrollLeftForCard(center);
-          animateScrollLeftTo(targetLeft, 220);
-        }
-        return;
-      }
-
-      momentumRaf = requestAnimationFrame(tick);
-    };
-
-    momentumRaf = requestAnimationFrame(tick);
-  }
-
-  function onPointerDown(e) {
-    // Only primary button for mouse, but allow touch.
-    if (e.pointerType === "mouse" && e.button !== 0) return;
-
-    stopMomentum();
-    dragging = true;
-    didDrag = false;
-
-    gallery.setPointerCapture(e.pointerId);
-
-    dragStartX = e.clientX;
-    dragStartLeft = gallery.scrollLeft;
-
-    lastMoveX = e.clientX;
-    lastMoveT = performance.now();
-    velocity = 0;
-
-    // Improve feel while dragging
-    gallery.style.scrollSnapType = "none";
-    gallery.style.cursor = "grabbing";
-  }
-
-  function onPointerMove(e) {
-    if (!dragging) return;
-
-    const dx = e.clientX - dragStartX;
-    if (Math.abs(dx) > 4) didDrag = true;
-
-    gallery.scrollLeft = dragStartLeft - dx;
-
-    const now = performance.now();
-    const dt = now - lastMoveT;
-
-    if (dt > 0) {
-      const vx = (e.clientX - lastMoveX) / dt; // px/ms
-      // invert because scrollLeft moves opposite of pointer drag direction
-      velocity = vx;
-      lastMoveX = e.clientX;
-      lastMoveT = now;
-    }
-  }
-
-  function onPointerUp(e) {
-    if (!dragging) return;
-
-    dragging = false;
-    gallery.releasePointerCapture(e.pointerId);
-
-    gallery.style.scrollSnapType = "";
-    gallery.style.cursor = "";
-
-    // Prevent accidental clicks after a drag
-    if (didDrag) {
-      // Small timeout lets pointerup finish before click fires
-      gallery.dataset.dragging = "1";
-      setTimeout(() => delete gallery.dataset.dragging, 0);
-    }
-
-    // Momentum uses velocity; invert sign to match scroll direction
-    // If user drags right, vx positive, scrollLeft decreased; we want glide consistent:
-    velocity = clamp(velocity, -2, 2);
-
-    if (Math.abs(velocity) > 0.05) startMomentum();
-    else {
-      const center = closestToCenter();
-      if (center) {
-        const targetLeft = targetScrollLeftForCard(center);
-        animateScrollLeftTo(targetLeft, 220);
-      }
-    }
-  }
-
-  // Cancel link clicks if the user dragged
-  function onClickCapture(e) {
-    if (gallery.dataset.dragging === "1") {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }
-
-  // ---------- Init ----------
-  setEdgePadding();
-  setupLoop();
-  setupCenterObserver();
-
-  gallery.addEventListener("wheel", onWheel, { passive: false });
-  gallery.addEventListener("pointerdown", onPointerDown);
-  gallery.addEventListener("pointermove", onPointerMove);
-  gallery.addEventListener("pointerup", onPointerUp);
-  gallery.addEventListener("pointercancel", onPointerUp);
-  gallery.addEventListener("click", onClickCapture, true);
-
+  // --- Resize re-pad
+  let resizeRaf = null;
   window.addEventListener("resize", () => {
-    setEdgePadding();
-    setupCenterObserver();
+    if (resizeRaf) cancelAnimationFrame(resizeRaf);
+    resizeRaf = requestAnimationFrame(() => { setEdgePadding(); updateCenterHighlight(); });
   });
 
-  if (btnPrev) btnPrev.addEventListener("click", () => nudge(-1));
-  if (btnNext) btnNext.addEventListener("click", () => nudge(1));
+  // --- Init: pad edges, center on the first card
+  setEdgePadding();
+  // Scroll first card into the center *without* smooth behavior, after layout settles
+  requestAnimationFrame(() => {
+    const first = cards[0];
+    const galleryRect = gallery.getBoundingClientRect();
+    const cardRect = first.getBoundingClientRect();
+    gallery.scrollLeft += (cardRect.left + cardRect.width / 2) - (galleryRect.left + galleryRect.width / 2);
+    updateCenterHighlight();
+  });
 })();
